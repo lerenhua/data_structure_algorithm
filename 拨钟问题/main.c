@@ -1,46 +1,81 @@
-#include "clock_op.h"
 #include <stdio.h>
-#include <stdlib.h>
+#define op_ids 9
+#define clock_ids 9
+
+int op_clock_map[op_ids][clock_ids] = {
+    {1, 1, 0, 1, 1, 0, 0, 0, 0},
+    {1, 1, 1, 0, 0, 0, 0, 0, 0},
+    {0, 1, 1, 0, 1, 1, 0, 0, 0},
+    {1, 0, 0, 1, 0, 0, 1, 0, 0},
+    {0, 1, 0, 1, 1, 1, 0, 1, 0},
+    {0, 0, 1, 0, 0, 1, 0, 0, 1},
+    {0, 0, 0, 1, 1, 0, 1, 1, 0},
+    {0, 0, 0, 0, 0, 0, 1, 1, 1},
+    {0, 0, 0, 0, 1, 1, 0, 1, 1},    
+};
+// 全局最小操作次数，用于筛选出最少操作的序列
+int min_count = 3 * op_ids +1;
+
+int temp_op_series[op_ids];
+int result_series[op_ids];
+
+int SearchSolution(int * clock_state, int move_id, int current_count)
+{
+    if (current_count > min_count)
+        return 0;
+    if (move_id == op_ids) // 遍历完所有移动操作时检查此操作序列可否满足要求
+    {
+        int i;
+        for (i = 0; i < clock_ids; i++)
+        {
+            int sum = clock_state[i];
+            for (int j = 0; j < op_ids; j++)
+                sum += op_clock_map[j][i] * temp_op_series[j];
+            if ((sum % 4) != 0)
+                break;
+        }
+        if ((i + 1) == op_ids)
+        {
+            if (current_count < min_count) // 如果有更优的解
+            {
+                min_count = current_count;
+                for (int j = 0; j < op_ids; j++)
+                {
+                    result_series[j] = temp_op_series[j];
+                }
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    int next_line = move_id + 1; 
+    for (int i = 0; i < 4; i++)
+    {
+        temp_op_series[move_id] = i;
+        SearchSolution(clock_state, next_line, current_count + temp_op_series[move_id]);
+    }
+}
+void PrintResult(int * result)
+{
+    for (int i = 0; i < op_ids; i++)
+        //if (result[i] != 0)
+            printf("%d ", result[i]);
+    printf("\n");
+}
 
 int main()
 {
-    Stack  global_stack;
-    InitStack(&global_stack, StateOptiosMap_ptr, MAXCAPACITY);  // 初始化全局堆栈
-
-    StateOptionsMap * current_som = NULL;
-    // 记录未到12点的时钟，1表示未到达12点，0表示到达12点
-    int no_zero_clock[9];  
-    // 记录可进行打移动选项
-    int available_option[9];
-    clock_state temp_state;
-
-    CopyState(init_state, temp_state);
-    current_som = CreateMap(temp_state);
-
-    while (!IsAllZero(temp_state))
+    int clock_state[clock_ids];
+    // 处理输入
+    for (int i = 0; i < 3; i++)
     {
-        // 时钟未全部到达12点则进入循环
-        FindZeroClock(no_zero_clock, temp_state);
-        FindAvailableOptions(available_option, no_zero_clock, move_clcok_map);
-        SortAndPush(available_option, move_clock_array, current_som);
-        while (IsEmptyOptions(current_som)) // 如果当前时钟状态没有可以移动的选项，则从全局堆栈恢复之前的状态
-        {
-            current_som = PopStack(&global_stack);
-            PopStack(&(current_som->options));
-        }
-        MoveClock(current_som, temp_state)
-        PushStack(&global_stack, current_som);
-        current_som = CreateMap(temp_state)
+        scanf("%d %d %d", &clock_state[3 * i + 0], &clock_state[3*i + 1], &clock_state[3*i + 2]);
     }
+    PrintResult(clock_state);
 
-    int result_length = global_stack.size;
-    int * result = malloc(sizeof(int) * result_length);
-    for (int i = 0; i < result_length; i++)
-    {
-        current_som = PopStack(&global_stack);
-        result[i] = TopStack(&current_som->options);
-    }
-    Sort(result);
-    PrintResult(result);
-    return 0;
+    SearchSolution(clock_state, 0, 0);
+
+    //Sort(result_series);
+    PrintResult(result_series);
 }
