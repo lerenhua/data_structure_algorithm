@@ -26,6 +26,10 @@ int SearchSolution(int * clock_state, int move_id, int current_count)
     if (move_id == op_ids) // 遍历完所有移动操作时检查此操作序列可否满足要求
     {
         int i;
+        if (temp_op_series[3] == 1 && temp_op_series[4] == 1 && temp_op_series[7] == 1)
+        {
+            printf("\n");
+        }
         for (i = 0; i < clock_ids; i++)
         {
             int sum = clock_state[i];
@@ -34,7 +38,7 @@ int SearchSolution(int * clock_state, int move_id, int current_count)
             if ((sum % 4) != 0)
                 break;
         }
-        if ((i + 1) == op_ids)
+        if (i == op_ids)
         {
             if (current_count < min_count) // 如果有更优的解
             {
