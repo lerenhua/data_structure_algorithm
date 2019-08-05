@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "specific_clock.h"
+
 int main()
 {
     int init_clock;  // 初始密码锁状态
@@ -22,7 +23,7 @@ int main()
     int solution;
     for (solution = 0; solution < max_search; solution++)  // 对所有可能的按钮方案进行枚举
     {
-        current_count = CalCounts(solution);
+        current_count = CalCounts(solution, bit_length);
         if (current_count > min_count)
             break;
         temp_clock = init_clock;
@@ -30,7 +31,7 @@ int main()
         {
             int bit = GetBit(solution, i);
             if (bit)
-                temp_clock = FlipBit(temp_clock, i, bit_length);
+                temp_clock = FlipState(temp_clock, i, bit_length);
         }
         if (!(temp_clock ^ expect_clcok))
         {
@@ -38,5 +39,5 @@ int main()
         }
     }
     // 输出结果!
-
+    printf("%d\n", min_count);
 }
