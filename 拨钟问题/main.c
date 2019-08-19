@@ -68,7 +68,7 @@ void PrintResult(int * result)
     printf("\n");
 }
 
-int main()
+int main(int argc, char const * argv[])
 {
     int clock_state[clock_ids];
     // 处理输入
@@ -82,4 +82,5 @@ int main()
 
     //Sort(result_series);
     PrintResult(result_series);
+
 }
