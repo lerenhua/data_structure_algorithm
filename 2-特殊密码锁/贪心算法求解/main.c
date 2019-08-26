@@ -13,6 +13,11 @@ int main()
 
     // 处理输入
     length = GetStateFromInput(init_state);
+    if (length < 0)
+    {
+        printf("cant not input !\n");
+        exit(0);
+    }
     if (GetStateFromInput(expect_state) != length)
     {   
         printf("Input Error!\n");
@@ -25,7 +30,8 @@ int main()
     {
         if (init_state[i] != expect_state[i]) // 当前位与期望状态不匹配
         {
-            if (dismatch)  // 如果当前位的前一位状态不匹配，则可以对当前位进行翻转
+            
+            if (dismatch || i == 0)  // 如果当前位的前一位状态不匹配，则可以对当前位进行翻转
             {
                 FlipBit(init_state, i, length);
                 num++;

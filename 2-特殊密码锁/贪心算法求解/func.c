@@ -16,12 +16,12 @@ int GetStateFromInput(char *state_str)
         if (ch != '0' && ch != '1')  // 处理非法输入字符
         {
             printf("Invalid input char!\n");
-            return 1;
+            return -1;
         }
         if (count == MAX_LENGTH - 1)  // 处理输入字符串长度大于MAX_LENGHT
         {
             printf("The length of input char is too long!\n");
-            return 1;
+            return -1;
         }
 
         state_str[count] = ch;
@@ -29,7 +29,7 @@ int GetStateFromInput(char *state_str)
         ch = getchar();
     }
     state_str[count] = '\0';
-    return 0;
+    return count;
 }
 
 int Flip(char *ch)
