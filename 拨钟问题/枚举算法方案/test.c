@@ -1,9 +1,22 @@
 #include <stdio.h>
 #include "func.h"
 
+int option_map[OPTION_LENGTH][OPTION_LENGTH] = {
+            {1, 1, 0, 1, 1, 0, 0, 0, 0},
+            {1, 1, 1, 0, 0, 0, 0, 0, 0},
+            {0, 1, 1, 0, 1, 1, 0, 0, 0},
+            {1, 0, 0, 1, 0, 0, 1, 0, 0},
+            {0, 1, 0, 1, 1, 1, 0, 1, 0},
+            {0, 0, 1, 0, 0, 1, 0, 0, 1},
+            {0, 0, 0, 1, 1, 0, 1, 1, 0},
+            {0, 0, 0, 0, 0, 0, 1, 1, 1},
+            {0, 0, 0, 0, 1, 1, 0, 1, 1}
+};
+
 int main()
 {
     int option;
+
     scanf("%d", &option);
     switch (option)
     {
@@ -33,7 +46,7 @@ int main()
             #define LENGTH 5
             int counts[LENGTH] = {1, 2, 3, 4, 5};
             int sum;
-            if (!(sum = CalCount(counts, LENGTH)))
+            if ((sum = CalCount(counts, LENGTH)) > 0)
                 printf("The sum is %d\n", sum);
             else
                 printf("Error Happen!\n");
@@ -41,9 +54,10 @@ int main()
         }
     case 3:
         {
+
             /* 
               测试MoveClock函数
-             */
+             
             int option2clock_maps[3][3] = {
                 {1, 0, 0},
                 {0, 1, 0},
@@ -93,7 +107,7 @@ int main()
                 }
                 else
                     printf("the combination of clock2_state and options2 is error!\n");
-            }
+            */}
     case 4:
         {
             /* 

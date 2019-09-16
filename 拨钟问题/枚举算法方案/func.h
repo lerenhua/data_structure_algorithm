@@ -1,5 +1,8 @@
 #ifndef _FUNC_H
 #define _FUNC_H
+#define OPTION_LENGTH 9
+
+extern int option_map[OPTION_LENGTH][OPTION_LENGTH];
 
 /* 
   将输入保存至给定的数组
@@ -21,7 +24,7 @@ int CalCount(int *option_times, int length);
   args： option_times --- int数组，表示移动选项的记录
   return: 成功返回0,反之返回-1
  */
-int MoveClock(int *state, int *option_times, int map[3][3]);
+int MoveClock(int *state, int *option_times, int length);
 
 /* 
   检查时钟状态是否都为12点
@@ -36,6 +39,6 @@ int AllTwelve(int *state, int length);
   args： option_times --- int数组，表示移动操作记录
   return： 输出成功返回0,反之返回-1
  */
-int PrintResult(int *option_times);
+int PrintResult(int *option_times, int length);
 
 #endif
