@@ -118,20 +118,28 @@ int maxProduct(int* nums, int numsSize)
         {
             // 第一种情况，将第一个负数去除
             int temp_start = GetFirstNegIdx(sig_flag, current_range->start_idx, current_range->end_idx);
-            if (temp_start > current_range->end_idx)
-            for (int i = temp_start+1; i <= current_range->end_idx; i++)
-                current_mul_res *= nums[i];
-            if (current_mul_res > max_mul_res)
-                max_mul_res = current_mul_res;
+            if (temp_start < current_range->end_idx)
+            {
+                for (int i = temp_start+1; i <= current_range->end_idx; i++)
+                    current_mul_res *= nums[i];
+                if (current_mul_res > max_mul_res)
+                    max_mul_res = current_mul_res;
+            }
+            
             
             current_mul_res = 1;
             // 考虑第二种情况，将最后一个负数去除
             int temp_end = GetLastNegIdx(sig_flag, current_range->start_idx, current_range->end_idx);
-            if (temp_end < current_range->start_idx)
-            for (int i = current_range->start_idx; i <= temp_end-1; i++)
-                current_mul_res *= nums[i];
-            if (current_mul_res > max_mul_res)
-                max_mul_res = current_mul_res;
+            if (temp_end > current_range->start_idx)
+            {
+                for (int i = current_range->start_idx; i <= temp_end-1; i++)
+                    current_mul_res *= nums[i];
+                if (current_mul_res > max_mul_res)
+                    max_mul_res = current_mul_res;
+            }
+            
         }
+        range_list_head = range_list_head->next;
     }
+    return max_mul_res;
 }
