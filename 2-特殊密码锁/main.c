@@ -14,6 +14,8 @@ int main()
 
     bit_length = GetClcokState(&init_clock);
     int temp_length = GetClcokState(&expect_clcok);
+    
+
 
     if (bit_length != temp_length)
         return 1;

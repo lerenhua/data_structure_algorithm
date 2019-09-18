@@ -10,7 +10,7 @@ int GetClcokState(int *clock_state_ptr)
         if (ch != '\n')
         {
             if (ch == '0')
-                (*clock_state_ptr) << 1;
+                *clock_state_ptr = (*clock_state_ptr) << 1;
             else
                 *clock_state_ptr = ((*clock_state_ptr) << 1) | 1;
         }
