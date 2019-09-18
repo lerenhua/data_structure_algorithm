@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "specific_clock.h"
 
+
+
 int GetClcokState(int *clock_state_ptr)
 {
     char ch;
@@ -19,36 +21,18 @@ int GetClcokState(int *clock_state_ptr)
     }
 }
 
-int GetBit(int bin_num, int pos)
+/* int GetBit(int bin_num, int pos)
 {
     return ((bin_num >> pos) & 1);
-}
+}*/
 
-int FlipBit(int bit_num, int pos)
+/* int FlipBit(int bit_num, int pos)
 {
     return (bit_num ^ (1 << pos));
-}
+}*/
 
-int FlipState(int bit_num, int pos, int len)
-{
-    int temp;
-    if (pos == 0)
-    {
-        temp = FlipBit(bit_num, 0);
-        return FlipBit(temp, 1);
-    }
-    else if (pos == (len - 1))
-    {
-        temp = FlipBit(bit_num, pos);
-        return FlipBit(temp, pos - 1);
-    }
-    else
-    {
-        temp = FlipBit(bit_num, pos);
-        temp = FlipBit(temp, pos - 1);
-        return FlipBit(temp, pos + 1);
-    }
-}
+
+
 
 int CalCounts(int solution, int len)
 {
