@@ -70,7 +70,7 @@ int maxProduct(int* nums, int numsSize)
     range *range_list_head = NULL;
     int need_creat_range = 1;
     range *new_range = NULL;
-    for (int i = 0; i < numsSize; i++)
+    for (int i = 0; i < numsSize; i++)  // 一定要注意区间位置划分的准确性，关系较大
     {
         if (sig_flag[i] != 0)
         {
@@ -92,7 +92,7 @@ int maxProduct(int* nums, int numsSize)
             }
             else
             {
-                new_range->end_idx = numsSize;
+                new_range->end_idx = numsSize - 1;
                 new_range->next = range_list_head;
                 range_list_head = new_range;
             }
